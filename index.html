@@ -17,40 +17,12 @@
 <script src="scripts.js"></script>
 <body onload="generateScramble()">
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">Jake's Cube Timer</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
   <!-- Page Content -->
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
         <h1 class="mt-5" id="timer">0.00s</h1>
-        <p class="lead" id="scramble">Scramble: </p>
+        <p class="lead" id="scramble"></p>
       </div>
     </div>
   </div>
@@ -60,10 +32,15 @@
 	<button type="button" class="btn btn-secondary btn-lg" onclick="endTimer()">END</button>
   </div>
 
-  <ul class="list-group text-center">
-    <li class="list-group-item" id="solve-time-zero"></li>
-	<li class="list-group-item" id="solve-time-one"></li>
-  </ul>
+  <table class="table">
+    <tbody>
+	  <tr id="recent-solve-zero"></tr>
+	  <tr id="recent-solve-one"></tr>
+	  <tr id="recent-solve-two"></tr>
+	  <tr id="recent-solve-three"></tr>
+	  <tr id="recent-solve-four"></tr>
+	</tbody>
+  </table>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.slim.min.js"></script>

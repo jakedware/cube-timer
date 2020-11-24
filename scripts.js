@@ -16,12 +16,15 @@ function endTimer() {
   var solveTime = (timerEnd - timerStart) / 1000;
   document.getElementById("timer").innerHTML = solveTime + "s";
 
-  solveTimes
-  document.getElementById("solve-time-zero").innerHTML = solveTime + "s";
-}
+  document.getElementById("scramble").innerHTML = "";
+  generateScramble();
+  shiftRecentSolveTimes(solveTime);
 
-function resetTimer() {
-  
+  document.getElementById("recent-solve-zero").innerHTML = solveTimes[0] + "s";
+  document.getElementById("recent-solve-one").innerHTML = solveTimes[1] + "s";
+  document.getElementById("recent-solve-two").innerHTML = solveTimes[2] + "s";
+  document.getElementById("recent-solve-three").innerHTML = solveTimes[3] + "s";
+  document.getElementById("recent-solve-four").innerHTML = solveTimes[4] + "s";
 }
 
 function generateScramble() {
@@ -49,5 +52,13 @@ function generateScramble() {
   scramble.forEach(element => {
     document.getElementById("scramble").innerHTML += element.toString();
 	});
+}
+
+function shiftRecentSolveTimes(newTime) {
+  var numRecentSolves = 5;
+  for (var i = 0; i < (numRecentSolves - 1); i++) {
+    solveTimes[i + 1] = solveTimes[i];
+  }
+  solveTimes[0] = newTime;
 }
 
