@@ -6,21 +6,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="author" content="Jake Ware">
 
-  <title>Bare - Start Bootstrap Template</title>
+  <title>Jake's Cube Timer</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
-
-<body>
+<script src="scripts.js"></script>
+<body onload="generateScramble()">
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <a class="navbar-brand" href="#">Jake's Cube Timer</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -49,19 +49,28 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h1 class="mt-5">A Bootstrap 4 Starter Template</h1>
-        <p class="lead">Complete with pre-defined file paths and responsive navigation!</p>
-        <ul class="list-unstyled">
-          <li>Bootstrap 4.5.3</li>
-          <li>jQuery 3.5.1</li>
-        </ul>
+        <h1 class="mt-5" id="timer">0.00s</h1>
+        <p class="lead" id="scramble">Scramble: </p>
       </div>
     </div>
   </div>
 
+  <div class="container text-center">
+    <button type="button" class="btn btn-primary btn-lg" onclick="startTimer()">START</button>
+	<button type="button" class="btn btn-secondary btn-lg" onclick="endTimer()">END</button>
+  </div>
+
+  <ul class="list-group text-center">
+    <li class="list-group-item" id="solve-time-zero"></li>
+	<li class="list-group-item" id="solve-time-one"></li>
+  </ul>
+
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.slim.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Cube Timer Scripts -->
+  <script src="scripts.js"></script>
 
 </body>
 
