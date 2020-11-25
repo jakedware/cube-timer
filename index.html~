@@ -37,7 +37,7 @@
   <div class="container">
     <div class="row">
         <div class="col-{breakpoint}-auto">
-      <table class="table" id="recent-table">
+      <table class="table">
         <tbody>
           <tr id="recent-solve-zero"></tr>
           <tr id="recent-solve-one"></tr>
@@ -48,7 +48,7 @@
       </table>
     </div>
     <div class="col-{breakpoint}-auto">
-      <table class="table" id="best-table">
+      <table class="table">
          <tbody>
            <tr id="best-solve-zero"></tr>
            <tr id="best-solve-one"></tr>

@@ -1,7 +1,6 @@
 var timerStart = 0;
 var timerEnd = 0;
 var solveTimes = [];
-var bestTimes = [];
 var timerToggle = false; // true if started, false otherwise
 
 /*
