@@ -4,20 +4,63 @@ var solves = [];
 var bestTimes = [];
 var timerToggle = false; // true if started, false otherwise
 var currScramble = null;
+var inspectSeconds = 15; // defaults to 15 seconds 
+var inspecting = false; // true if inspection is taking place, false otherwise
+var interval = null;
+
 /*
  * Starts or ends timer based on timer button state
  */
 function toggleTimer() {
-  if (timerToggle) {
+  if (timerToggle && !inspecting) {
     endTimer();
     timerToggle = false;
     document.getElementById("timer-button").innerHTML = "START";
   }
-  else {
-    startTimer();
+  else if (!timerToggle) {
     timerToggle = true;
-    document.getElementById("timer-button").innerHTML = "STOP";
+    inspectTime();
+  } 
+  else if (timerToggle && inspecting) {
+    clearInterval(interval);
+    startTimer();
+    inspecting = false;
   }
+}
+
+function inspectTime() {
+  if (inspectSeconds == 0) {
+    startTimer();
+    return;
+  }
+
+  var inspectStart = inspectSeconds;
+  inspecting = true;
+
+  document.getElementById("timer").innerHTML = "Starting Inspection";
+  document.getElementById("timer-button").innerHTML = "INSPECTING";
+  
+  interval = setInterval(function() {
+    
+    // start timer if end of inspection time is reached
+    if (inspectStart == 0) {
+      clearInterval(interval);
+      startTimer();
+      inspecting = false;
+      return;
+    }
+
+    // update countdown
+    document.getElementById("timer").innerHTML = inspectStart;
+
+    inspectStart--;
+
+  } , 1000);
+    
+}
+
+function changeInspectTime(newTime) {
+  inspectSeconds = newTime;
 }
 
 /*
@@ -26,6 +69,7 @@ function toggleTimer() {
 function startTimer() {
   timerStart = (new Date()).getTime();
 
+  document.getElementById("timer-button").innerHTML = "STOP";
   document.getElementById("timer").innerHTML = "...";
 }
 
@@ -68,6 +112,9 @@ function updateRecentTable() {
   }
 }
 
+/**
+ * Creates dropdown with scramble for the given row
+ */
 function createDropdownRow(parentRow, solve) {
   parentRow.innerHTML = "<td>" + "<div class=\"dropdown\">" +
    "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\">" + solve.time + "s</a>" +

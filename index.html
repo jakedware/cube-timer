@@ -32,6 +32,20 @@
                       data-toggle="button" aria-pressed="false" onclick="toggleTimer()">
            START 
         </button>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-outline-secondary" onclick="changeInspectTime(5)">
+            <input type="radio" name="options" id="option1" autocomplete="off"> 5s
+          </label>
+          <label class="btn btn-outline-secondary" onclick="changeInspectTime(10)">
+            <input type="radio" name="options" id="option2" autocomplete="off"> 10s
+          </label>
+          <label class="btn btn-outline-secondary" onclick="changeInspectTime(15)">
+            <input type="radio" name="options" id="option3" autocomplete="off" checked> 15s
+          </label>
+          <label class="btn btn-outline-secondary" onclick="changeInspectTime(0)">
+            <input type="radio" name="options" id="option4" autocomplete="off">No Inspect
+          </label>
+      </div>
   </div>
 
   <div class="container">
