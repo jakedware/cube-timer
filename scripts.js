@@ -37,13 +37,13 @@ function inspectTime() {
   var inspectStart = inspectSeconds;
   inspecting = true;
 
-  document.getElementById("timer").innerHTML = "Starting Inspection";
+  document.getElementById("timer").innerHTML = inspectStart;
   document.getElementById("timer-button").innerHTML = "INSPECTING";
   
   interval = setInterval(function() {
     
     // start timer if end of inspection time is reached
-    if (inspectStart == 0) {
+    if (inspectStart == 1) {
       clearInterval(interval);
       startTimer();
       inspecting = false;
@@ -51,14 +51,16 @@ function inspectTime() {
     }
 
     // update countdown
-    document.getElementById("timer").innerHTML = inspectStart;
-
     inspectStart--;
+    document.getElementById("timer").innerHTML = inspectStart;
 
   } , 1000);
     
 }
 
+/*
+ * Changes the inspect time. Made to be used by inspect buttons
+ */
 function changeInspectTime(newTime) {
   inspectSeconds = newTime;
 }
@@ -104,11 +106,7 @@ function updateRecentTable() {
     }
 
     table.rows[i + 1].innerHTML = "<td>" + solves[i].time + "s</td>";
-    let dataCell = table.rows[i + 1].cells[0];
-    dataCell.class = "dropdown";
-
     createDropdownRow(table.rows[i + 1], solves[i]);
-    //table.rows[i + 1].child = solves[i].scramble.toString();
   }
 }
 

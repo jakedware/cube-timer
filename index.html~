@@ -33,13 +33,13 @@
            START 
         </button>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-outline-secondary">
+          <label class="btn btn-outline-secondary" onclick="changeInspectTime(5)">
             <input type="radio" name="options" id="option1" autocomplete="off"> 5s
           </label>
-          <label class="btn btn-outline-secondary">
+          <label class="btn btn-outline-secondary" onclick="changeInspectTime(10)">
             <input type="radio" name="options" id="option2" autocomplete="off"> 10s
           </label>
-          <label class="btn btn-outline-secondary">
+          <label class="btn btn-outline-secondary" onclick="changeInspectTime(15)">
             <input type="radio" name="options" id="option3" autocomplete="off" checked> 15s
           </label>
           <label class="btn btn-outline-secondary" onclick="changeInspectTime(0)">
@@ -50,7 +50,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-{breakpoint}-auto">
+      <div class="col mx-auto">
         <table class="table table-bordered table-striped" id="recent-table">
           <thead>
             <tr>
@@ -66,14 +66,19 @@
           </tbody>
         </table>
       </div>
-      <div class="col-{breakpoint}-auto">
-        <table class="table" id="best-table">
+      <div class="col mx-auto">
+        <table class="table table-bordered table-striped" id="best-table">
+          <thead>
+            <tr>
+              <th scope="col">Best Solves</th>
+            </tr>
+          </thead>
            <tbody>
-             <tr id="best-solve-zero"></tr>
-             <tr id="best-solve-one"></tr>
-             <tr id="best-solve-two"></tr>
-             <tr id="best-solve-three"></tr>
-             <tr id="best-solve-three"></tr>
+               <tr id="best-solve-zero"><td></td></tr>
+               <tr id="best-solve-one"><td></td></tr>
+               <tr id="best-solve-two"><td></td></tr>
+               <tr id="best-solve-three"><td></td></tr>
+               <tr id="best-solve-three"><td></td></tr>
            </tbody>
         </table>
       </div>
