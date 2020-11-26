@@ -35,10 +35,9 @@
   </div>
 
   <div class="container">
-    <button type="button" class="btn btn-secondary btn-md" onclick="toggleShowScramble()">show scrambles</button>
     <div class="row">
       <div class="col-{breakpoint}-auto">
-            <button type="button" class="btn btn-secondary btn-md" onclick="toggleShowScramble()">show scrambles</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleShowScramble()">show scrambles</button>
 
         <table class="table table-bordered table-striped" id="recent-table">
           <thead>

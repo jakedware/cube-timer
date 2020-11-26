@@ -60,8 +60,20 @@ function updateRecentTable() {
     }
 
     table.rows[i + 1].innerHTML = "<td>" + solves[i].time + "s</td>";
-    table.rows[i + 1].child = solves[i].scramble.toString();
+    let dataCell = table.rows[i + 1].cells[0];
+    dataCell.class = "dropdown";
+
+    createDropdownRow(table.rows[i + 1], solves[i]);
+    //table.rows[i + 1].child = solves[i].scramble.toString();
   }
+}
+
+function createDropdownRow(parentRow, solve) {
+  parentRow.innerHTML = "<td>" + "<div class=\"dropdown\">" +
+   "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\">" + solve.time + "s</a>" +
+   "<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLablel\">" +
+        "<li><a>" + toStringArrayNoComma(solve.scramble) + "</a></li></ul></div></td>";
+
 }
 
 /*
@@ -93,9 +105,7 @@ function generateScramble() {
   currScramble = scramble;
 
   // put scramble into html
-  scramble.forEach(element => {
-    document.getElementById("scramble").innerHTML += element.toString();
-	});
+  document.getElementById("scramble").innerHTML = toStringArrayNoComma(scramble);
 }
 
 /*
@@ -113,11 +123,13 @@ function shiftRecentSolveTimes(newTime) {
   }
 }
 
-function toggleShowScramble() {
-  let table = document.getElementById("recent-table");
+/*
+ * Same as toString() for an array but with no commas
+ */
+function toStringArrayNoComma(array) {
+  var arrayString = "";
 
-  for (var i = table.rows.length - table.tHead.rows.length; i < table.rows.length; i++) {
-    let childRow = document.createElement("tr");
-    table.rows[i]; 
-  }
+  array.forEach(element => {arrayString += element;});
+
+  return arrayString;
 }
