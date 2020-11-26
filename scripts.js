@@ -1,12 +1,13 @@
 var timerStart = 0;
 var timerEnd = 0;
 var solves = [];
-var bestTimes = [];
+var bestSolves = [];
 var timerToggle = false; // true if started, false otherwise
 var currScramble = null;
 var inspectSeconds = 15; // defaults to 15 seconds 
 var inspecting = false; // true if inspection is taking place, false otherwise
 var interval = null;
+var numBestSolves = 5;
 
 /*
  * Starts or ends timer based on timer button state
@@ -28,6 +29,9 @@ function toggleTimer() {
   }
 }
 
+/*
+ * Gives user selected amount of inspection time (defaults to 15s)
+ */
 function inspectTime() {
   if (inspectSeconds == 0) {
     startTimer();
@@ -93,6 +97,8 @@ function endTimer() {
   shiftRecentSolveTimes(solveTime);
   updateRecentTable();
 
+  updateBestTable(solveTime);
+
 }
 
 /*
@@ -102,7 +108,7 @@ function updateRecentTable() {
   let table = document.getElementById("recent-table");   
   for (var i = 0; i < solves.length; i++) {
     if (solves[i] === undefined) {
-      continue;
+      break;
     }
 
     table.rows[i + 1].innerHTML = "<td>" + solves[i].time + "s</td>";
@@ -110,7 +116,45 @@ function updateRecentTable() {
   }
 }
 
-/**
+/*
+ * Updates best time table if new top 5 time is achieved
+ */
+function updateBestTable(currSolve) {
+  var index = -1;
+  // checks if currSolve is better than any of the best solves
+  for (var i = 4; i >= 0; i--) {
+    if (bestSolves[i] === undefined || currSolve < bestSolves[i].time) {
+      index = i;
+    }
+  }
+
+  // don't update table if currSolve is not better than any of the best solves
+  if (index == -1) {
+    return;
+  } 
+
+  // update bestSolves array
+  for (var i = bestSolves.length; i > index; i--) {
+    bestSolves[i] = bestSolves[i - 1]; 
+  }
+
+  bestSolves[index] = {time:currSolve, scramble:currScramble};
+
+  // update best solves table
+  let table = document.getElementById("best-table");
+  var tableRowOffset = table.tHead.rows.length;
+  for (var i = 0; i < numBestSolves; i++) {
+    if (bestSolves[i] === undefined) {
+      continue;
+    }
+
+    createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
+  }
+
+  setCookies();
+}
+
+/*
  * Creates dropdown with scramble for the given row
  */
 function createDropdownRow(parentRow, solve) {
@@ -172,9 +216,33 @@ function shiftRecentSolveTimes(newTime) {
  * Same as toString() for an array but with no commas
  */
 function toStringArrayNoComma(array) {
+  if (array === undefined) {
+    return;
+  }
+
   var arrayString = "";
 
   array.forEach(element => {arrayString += element;});
 
   return arrayString;
+}
+
+function setCookies() {
+  for (var i = 0; i < bestSolves.length; i++) {
+    document.cookies += "time=" + bestSolves[i].time;
+  }
+}
+
+function readCookies() {
+  var cookieArray = document.cookie.split(":");  
+
+  for (var i = 0; i < numBestSolves; i++) {
+    var cookieTime = cookieArray[2*i];
+    var cookieScramble = cookieArray[2*i + 1].split(" ");
+  }
+}
+
+function initialize() {
+  generateScramble();
+  readCookies();
 }
