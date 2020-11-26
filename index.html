@@ -36,29 +36,35 @@
 
   <div class="container">
     <div class="row">
-        <div class="col-{breakpoint}-auto">
-      <table class="table" id="recent-table">
-        <tbody>
-          <tr id="recent-solve-zero"></tr>
-          <tr id="recent-solve-one"></tr>
-          <tr id="recent-solve-two"></tr>
-          <tr id="recent-solve-three"></tr>
-          <tr id="recent-solve-four"></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-{breakpoint}-auto">
-      <table class="table" id="best-table">
-         <tbody>
-           <tr id="best-solve-zero"></tr>
-           <tr id="best-solve-one"></tr>
-           <tr id="best-solve-two"></tr>
-           <tr id="best-solve-three"></tr>
-           <tr id="best-solve-three"></tr>
-         </tbody>
-      </table>
-    </div>
-    <div class="row">
+      <div class="col-{breakpoint}-auto">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleShowScramble()">show scrambles</button>
+
+        <table class="table table-bordered table-striped" id="recent-table">
+          <thead>
+            <tr>
+              <th scope="col">Recent Solves</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr id="recent-solve-zero"><td></td></tr>
+              <tr id="recent-solve-one"><td></td></tr>
+              <tr id="recent-solve-two"><td></td></tr>
+              <tr id="recent-solve-three"><td></td></tr>
+              <tr id="recent-solve-four"><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-{breakpoint}-auto">
+        <table class="table" id="best-table">
+           <tbody>
+             <tr id="best-solve-zero"></tr>
+             <tr id="best-solve-one"></tr>
+             <tr id="best-solve-two"></tr>
+             <tr id="best-solve-three"></tr>
+             <tr id="best-solve-three"></tr>
+           </tbody>
+        </table>
+      </div>
   </div>
 
   <!-- Bootstrap core JavaScript -->

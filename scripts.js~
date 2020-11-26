@@ -1,8 +1,9 @@
 var timerStart = 0;
 var timerEnd = 0;
-var solveTimes = [];
+var solves = [];
+var bestTimes = [];
 var timerToggle = false; // true if started, false otherwise
-
+var currScramble = null;
 /*
  * Starts or ends timer based on timer button state
  */
@@ -48,18 +49,19 @@ function endTimer() {
 
 }
 
+/*
+ * Updates the table of recent solve times
+ */
 function updateRecentTable() {
-  let table = document.createElement("table");
-  table.id = "recent-table"
-  
-  for (var i = 0; i < solveTimes.length; i++) {
-    table.insertRow();
-    let cell = table.rows[table.rows.length - 1].insertCell();
-    cell.textContent = solveTimes[i];
-  }
+  let table = document.getElementById("recent-table");   
+  for (var i = 0; i < solves.length; i++) {
+    if (solves[i] === undefined) {
+      continue;
+    }
 
-  const oldTable = document.getElementById("recent-table");
-  oldTable.parentNode.replaceChild(table, oldTable);
+    table.rows[i + 1].innerHTML = "<td>" + solves[i].time + "s</td>";
+    table.rows[i + 1].child = solves[i].scramble.toString();
+  }
 }
 
 /*
@@ -76,7 +78,7 @@ function generateScramble() {
     var randomIndexVariations = Math.floor(Math.random() * 3);
 
 	if (i == 0) {
-      scramble[i] = cubeMoves[randomIndex] + moveVariations[randomIndexVariations];
+          scramble[i] = cubeMoves[randomIndex] + moveVariations[randomIndexVariations];
 	  continue;
 	}
 
@@ -88,6 +90,7 @@ function generateScramble() {
     scramble[i] = cubeMoves[randomIndex] + moveVariations[randomIndexVariations];
     
   }
+  currScramble = scramble;
 
   // put scramble into html
   scramble.forEach(element => {
@@ -102,11 +105,19 @@ function shiftRecentSolveTimes(newTime) {
   var numRecentSolves = 5;
   for (var i = numRecentSolves - 1; i >= 0; i--) {
     if (i != 0) {
-      solveTimes[i] = solveTimes[i - 1]
+      solves[i] = solves[i - 1]
     }
     else {
-      solveTimes[0] = newTime;
+      solves[0] = {time:newTime, scramble:currScramble};
     }
   }
 }
 
+function toggleShowScramble() {
+  let table = document.getElementById("recent-table");
+
+  for (var i = table.rows.length - table.tHead.rows.length; i < table.rows.length; i++) {
+    let childRow = document.createElement("tr");
+    table.rows[i].; 
+  }
+}
