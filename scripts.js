@@ -140,6 +140,10 @@ function updateBestTable(currSolve) {
 
   bestSolves[index] = {time:currSolve, scramble:currScramble};
 
+  while(bestSolves.length > 5) {
+    bestSolves.pop();
+  }
+
   // update best solves table
   let table = document.getElementById("best-table");
   var tableRowOffset = table.tHead.rows.length;
@@ -228,17 +232,32 @@ function toStringArrayNoComma(array) {
 }
 
 function setCookies() {
+  document.cookies = "";
   for (var i = 0; i < bestSolves.length; i++) {
-    document.cookies += "time=" + bestSolves[i].time;
+    document.cookies += bestSolves[i].time + "scramble=";
+    bestSolves[i].scramble.forEach( (move) => {
+      document.cookies += move.trim() + "/";
+    });
+    document.cookies += ";";
+    console.log(document.cookies);
   }
 }
 
 function readCookies() {
-  var cookieArray = document.cookie.split(":");  
+  if(document.cookie.length == 0) {
+    console.log("No cookies found.");
+    return;
+  }
+  console.log(document.cookie);
+  var cookieArray = document.cookie.split(";");  
+  console.log(cookieArray);
 
-  for (var i = 0; i < numBestSolves; i++) {
-    var cookieTime = cookieArray[2*i];
-    var cookieScramble = cookieArray[2*i + 1].split(" ");
+  for (var i = 0; i < cookieArray.length; i++) {
+    var solve = cookieArray[i].split("scramble=");
+    var cookieScramble = solve[1].split("/");
+
+    bestSolves[i] = {solve, cookieScramble};
+    
   }
 }
 
