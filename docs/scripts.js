@@ -222,13 +222,15 @@ function toStringArrayNoComma(array) {
  * Sets cookies with solves from best solves table
  */
 function setCookie(time, scramble) {
-  var cookieInfo = "solve=" + time + "; scramble=";
-
+  var cookieSolveInfo = "solve=" + time;
+  
+  var cookieScrambleInfo = "scramble=";
   for (var i = 0; i < scramble.length; i++) {
-    cookieInfo += scramble[i];
+    cookieScrambleInfo += scramble[i];
   }
 
-  console.log(cookieInfo);
+  console.log(cookieSolveInfo);
+  console.log(cookieScrambleInfo);
   document.cookie = cookieInfo;
   console.log(document.cookie);
 }
