@@ -229,9 +229,8 @@ function setCookie(time, scramble) {
     cookieScrambleInfo += scramble[i];
   }
 
-  console.log(cookieSolveInfo);
-  console.log(cookieScrambleInfo);
-  document.cookie = cookieInfo;
+  document.cookie = cookieSolveInfo;
+  document.cookie = cookieScrambleInfo;
   console.log(document.cookie);
 }
 
