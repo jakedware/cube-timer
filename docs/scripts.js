@@ -239,18 +239,14 @@ function setCookie(time, scramble) {
  */
 function readCookies() {
   if(document.cookie.length == 0) {
-    console.log("No cookies found.");
     return;
   }
-  console.log(document.cookie);
+
   var cookieArray = document.cookie.split(";");  
   console.log(cookieArray);
-
+  
   for (var i = 0; i < cookieArray.length; i++) {
-    var solve = cookieArray[i].split("scramble=");
-    var cookieScramble = solve[1].split("/");
-
-    bestSolves[i] = {solve, cookieScramble};
+    
     
   }
 }
@@ -260,5 +256,5 @@ function readCookies() {
  */
 function initialize() {
   generateScramble();
-  //readCookies();
+  readCookies();
 }
