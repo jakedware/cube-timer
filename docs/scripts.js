@@ -241,7 +241,7 @@ function readCookies() {
   if(document.cookie.length == 0) {
     return;
   }
-
+  console.log(document.cookie);
   var cookieArray = document.cookie.split(";");  
   console.log(cookieArray);
   
