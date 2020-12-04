@@ -1,7 +1,7 @@
 var timerStart = 0;
 var timerEnd = 0;
-var solves = [];
-var bestSolves = [];
+var solves = new Array();
+var bestSolves = new Array();
 var timerToggle = false; // true if started, false otherwise
 var currScramble = null;
 var inspectSeconds = 15; // defaults to 15 seconds 
@@ -94,7 +94,10 @@ function endTimer() {
   generateScramble();
  
   // put solve times in table
-  shiftRecentSolveTimes(solveTime);
+  solves.unshift({time:solveTime, scramble:currScramble});
+  if (solves.length == numBestSolves + 1) {
+    solves.pop();
+  }
   updateRecentTable();
 
   updateBestTable(solveTime);
@@ -151,11 +154,10 @@ function updateBestTable(currSolve) {
     if (bestSolves[i] === undefined) {
       continue;
     }
-
+    setCookie(bestSolves[i].time, bestSolves[i].scramble);
     createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
   }
 
-  setCookies();
 }
 
 /*
@@ -173,7 +175,7 @@ function createDropdownRow(parentRow, solve) {
  * Generates random scramble using R,L,U,D,F,B, ' and 2
  */ 
 function generateScramble() {
-  var cubeMoves = [" R", " L", " U", " D", " F", " B"];
+  var cubeMoves = ["R", "L", "U", "D", "F", "B"];
   var moveVariations = ["", "'", "2"];
   var scramble = new Array();
 
@@ -188,7 +190,7 @@ function generateScramble() {
 	}
 
         // consecutive scramble moves should not move the same face
-	while (cubeMoves[randomIndex].charAt(1) == (scramble[i - 1]).charAt(1)) {
+	while (cubeMoves[randomIndex].charAt(0) == (scramble[i - 1]).charAt(0)) {
           randomIndex = Math.floor(Math.random() * 6);
 	}
 
@@ -202,21 +204,6 @@ function generateScramble() {
 }
 
 /*
- * Shifts solve time array so it can be easily displayed
- */
-function shiftRecentSolveTimes(newTime) {
-  var numRecentSolves = 5;
-  for (var i = numRecentSolves - 1; i >= 0; i--) {
-    if (i != 0) {
-      solves[i] = solves[i - 1]
-    }
-    else {
-      solves[0] = {time:newTime, scramble:currScramble};
-    }
-  }
-}
-
-/*
  * Same as toString() for an array but with no commas
  */
 function toStringArrayNoComma(array) {
@@ -226,7 +213,7 @@ function toStringArrayNoComma(array) {
 
   var arrayString = "";
 
-  array.forEach(element => {arrayString += element;});
+  array.forEach(element => {arrayString += element + " ";});
 
   return arrayString;
 }
@@ -234,16 +221,15 @@ function toStringArrayNoComma(array) {
 /*
  * Sets cookies with solves from best solves table
  */
-function setCookies() {
-  document.cookies = "";
-  for (var i = 0; i < bestSolves.length; i++) {
-    document.cookies += bestSolves[i].time + "scramble=";
-    bestSolves[i].scramble.forEach( (move) => {
-      document.cookies += move.trim() + "/";
-    });
-    document.cookies += ";";
-    console.log(document.cookies);
+function setCookie(time, scramble) {
+  var cookieInfo = "solve=" + time + ";scramble=";
+
+  for (var i = 0; i < scramble.length; i++) {
+    cookieInfo += scramble[i];
   }
+
+  document.cookie = cookieInfo;
+  console.log(document.cookie);
 }
 
 /*
@@ -272,5 +258,5 @@ function readCookies() {
  */
 function initialize() {
   generateScramble();
-  readCookies();
+  //readCookies();
 }
