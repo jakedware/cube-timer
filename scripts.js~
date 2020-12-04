@@ -246,6 +246,7 @@ function setCookies() {
 function readCookies() {
   if(document.cookie.length == 0) {
     console.log("No cookies found.");
+    return;
   }
   console.log(document.cookie);
   var cookieArray = document.cookie.split(";");  
