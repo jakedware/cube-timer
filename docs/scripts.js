@@ -125,7 +125,7 @@ function updateRecentTable() {
 function updateBestTable(currSolve) {
   var index = -1;
   // checks if currSolve is better than any of the best solves
-  for (var i = 4; i >= 0; i--) {
+  for (var i = numBestSolves - 1; i >= 0; i--) {
     if (bestSolves[i] === undefined || currSolve < bestSolves[i].time) {
       index = i;
     }
@@ -143,7 +143,7 @@ function updateBestTable(currSolve) {
 
   bestSolves[index] = {time:currSolve, scramble:currScramble};
 
-  while(bestSolves.length > 5) {
+  while(bestSolves.length > numBestSolves) {
     bestSolves.pop();
   }
 
@@ -222,12 +222,13 @@ function toStringArrayNoComma(array) {
  * Sets cookies with solves from best solves table
  */
 function setCookie(time, scramble) {
-  var cookieInfo = "solve=" + time + ";scramble=";
+  var cookieInfo = "solve=" + time + "; scramble=";
 
   for (var i = 0; i < scramble.length; i++) {
     cookieInfo += scramble[i];
   }
 
+  console.log(cookieInfo);
   document.cookie = cookieInfo;
   console.log(document.cookie);
 }
