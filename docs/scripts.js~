@@ -100,7 +100,7 @@ function endTimer() {
 
  // put solves in tables
   updateRecentTable();
-  updateBestTable(solveTime, currScramble);
+  updateBestArray(solveTime, currScramble);
 }
 
 /*
@@ -121,7 +121,7 @@ function updateRecentTable() {
 /*
  * Updates best time table if new top 5 time is achieved
  */
-function updateBestTable(currTime, currScramble) {
+function updateBestArray(currTime, currScramble) {
   var index = -1;
   // checks if currSolve is better than any of the best solves
   for (var i = numBestSolves - 1; i >= 0; i--) {
@@ -147,6 +147,12 @@ function updateBestTable(currTime, currScramble) {
   }
 
   // update best solves table
+  updateBestTable(bestSolves);
+
+}
+
+function updateBestTable(bestSolves) {
+  // update best solves table
   let table = document.getElementById("best-table");
   var tableRowOffset = table.tHead.rows.length;
   for (var i = 0; i < numBestSolves; i++) {
@@ -156,7 +162,6 @@ function updateBestTable(currTime, currScramble) {
     setCookie(bestSolves[i], i);
     createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
   }
-
 }
 
 /*
@@ -226,7 +231,9 @@ function setCookie(solve, num) {
   
   var cookieScrambleInfo = "scramble" + num + "=";
   for (var i = 0; i < solve.scramble.length; i++) {
-    cookieScrambleInfo += solve.scramble[i] + "-";
+    if (i != solve.scramble.length - 1) {
+      cookieScrambleInfo += solve.scramble[i] + "-";
+    }
   }
 
   document.cookie = cookieSolveInfo;
@@ -245,10 +252,15 @@ function readCookies() {
   var cookieArray = document.cookie.split(";");  
   console.log(cookieArray);
   
+  var cookieSolves = [];
   for (var i = 0; i < cookieArray.length; i += 2) {
     var solveCookie = cookieArray[i].split("=")[1];
     var scrambleCookie = cookieArray[i + 1].split("=")[1].split("-");
+
+    cookieSolves.push(solveCookie, scrambleCookie);
   }
+
+  updateBestTable(cookieSolves);
 }
 
 /*
