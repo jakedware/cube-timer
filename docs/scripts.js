@@ -129,18 +129,21 @@ function updateBestArray(currTime, currScramble) {
       index = i;
     }
   }
+  console.log(index);
 
   // don't update table if currSolve is not better than any of the best solves
   if (index == -1) {
     return;
   } 
 
-  // update bestSolves array
-  for (var i = bestSolves.length; i > index; i--) {
-    bestSolves[i] = bestSolves[i - 1]; 
-  }
+  bestSolves.splice(index, 0, {time:currTime, scramble:currScramble});
 
-  bestSolves[index] = {time:currTime, scramble:currScramble};
+  // update bestSolves array
+//  for (var i = bestSolves.length; i > index; i--) {
+  //  bestSolves[i] = bestSolves[i - 1]; 
+ // }
+
+ // bestSolves[index] = {time:currTime, scramble:currScramble};
 
   while(bestSolves.length > numBestSolves) {
     bestSolves.pop();
@@ -165,12 +168,10 @@ function updateBestTable(bestSolves) {
   var tableRowOffset = table.tHead.rows.length;
   for (var i = 0; i < numBestSolves; i++) {
     if (bestSolves[i] === undefined) {
-      continue;
+      break;
     }
 
-    if (table.rows[i + tableRowOffset].innerHTML === "<td></td>") {
-      createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
-    }
+    createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
   }
 }
 
@@ -275,6 +276,7 @@ function readCookies() {
 
   console.log(cookieSolves);
   // update best solves table with the cookie solves
+  bestSolves = cookieSolves;
   updateBestTable(cookieSolves);
 }
 
