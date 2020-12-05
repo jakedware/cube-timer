@@ -159,6 +159,7 @@ function updateBestTable(bestSolves) {
     if (bestSolves[i] === undefined) {
       continue;
     }
+    console.log(bestSolves[i]);
     setCookie(bestSolves[i], i);
     createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
   }
@@ -231,8 +232,10 @@ function setCookie(solve, num) {
   
   var cookieScrambleInfo = "scramble" + num + "=";
   for (var i = 0; i < solve.scramble.length; i++) {
+    cookieScrambleInfo += solve.scramble[i];
+
     if (i != solve.scramble.length - 1) {
-      cookieScrambleInfo += solve.scramble[i] + "-";
+      cookieScrambleInfo +=  "-";
     }
   }
 
