@@ -170,7 +170,7 @@ function updateBestTable(bestSolves) {
 
 
     console.log(table.rows[i + tableRowOffset].innerHTML);
-    if (table.rows[i + tableRowOffset].innerHTML.length === undefined) {
+    if (table.rows[i + tableRowOffset].innerHTML.length === "<td></td>") {
       createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
     }
   }

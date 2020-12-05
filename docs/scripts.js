@@ -168,9 +168,7 @@ function updateBestTable(bestSolves) {
       continue;
     }
 
-
-    console.log(table.rows[i + tableRowOffset].innerHTML);
-    if (table.rows[i + tableRowOffset].innerHTML.length === "<td></td>") {
+    if (table.rows[i + tableRowOffset].innerHTML === "<td></td>") {
       createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
     }
   }
