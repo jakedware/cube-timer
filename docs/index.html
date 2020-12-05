@@ -28,11 +28,7 @@
     </div>
   </div>
 
-  <div class="container text-center">
-	<button type="button" id="timer-button" class="btn btn-primary btn-lg"
-                      data-toggle="button" aria-pressed="false" onclick="toggleTimer()">
-           START 
-        </button>
+  <div class="container text-center my-3">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <label class="btn btn-outline-secondary" onclick="changeInspectTime(5)">
             <input type="radio" name="options" id="option1" autocomplete="off"> 5s
@@ -40,8 +36,8 @@
           <label class="btn btn-outline-secondary" onclick="changeInspectTime(10)">
             <input type="radio" name="options" id="option2" autocomplete="off"> 10s
           </label>
-          <label class="btn btn-outline-secondary" onclick="changeInspectTime(15)">
-            <input type="radio" name="options" id="option3" autocomplete="off" checked> 15s
+          <label class="btn btn-outline-secondary active" onclick="changeInspectTime(15)">
+            <input type="radio" name="options" id="option3" autocomplete="off"> 15s
           </label>
           <label class="btn btn-outline-secondary" onclick="changeInspectTime(0)">
             <input type="radio" name="options" id="option4" autocomplete="off">No Inspect
@@ -49,13 +45,18 @@
       </div>
   </div>
 
-  <div class="container">
+  <div class="container my-5">
+      <button class="btn btn-primary btn-block p-5" type="button" id="timer-button"
+          data-toggle="button" aria-pressed="false" onclick="toggleTimer()">START</button>
+  </div>
+
+  <div class="container my-5">
     <div class="row">
       <div class="col">
-        <table class="table table-bordered table-striped" id="recent-table">
+        <table class="table table-bordered" id="recent-table">
           <thead>
             <tr>
-              <th scope="col">Recent Solves</th>
+              <th class="text-center" scope="col">Recent Solves</th>
             </tr>
           </thead>
           <tbody>
@@ -68,10 +69,10 @@
         </table>
       </div>
       <div class="col">
-        <table class="table table-bordered table-striped" id="best-table">
+        <table class="table table-bordered rounded" id="best-table">
           <thead>
             <tr>
-              <th scope="col">Best Solves</th>
+              <th class="text-center" scope="col">Best Solves</th>
             </tr>
           </thead>
            <tbody>

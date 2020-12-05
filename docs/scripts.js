@@ -174,7 +174,7 @@ function updateBestTable(bestSolves) {
  * Creates dropdown with scramble for the given row
  */
 function createDropdownRow(parentRow, solve) {
-  parentRow.innerHTML = "<td>" + "<div class=\"dropdown\">" +
+  parentRow.innerHTML = "<td class=\"text-center\">" + "<div class=\"dropdown\">" +
    "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\">" + solve.time + "s</a>" +
    "<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLablel\">" +
         "<li><a>" + toStringArrayNoComma(solve.scramble) + "</a></li></ul></div></td>";
