@@ -159,6 +159,7 @@ function updateBestTable(bestSolves) {
     if (bestSolves[i] === undefined) {
       continue;
     }
+    console.log(bestSolves[i]);
     setCookie(bestSolves[i], i);
     createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
   }
