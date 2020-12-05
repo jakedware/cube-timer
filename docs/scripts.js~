@@ -147,6 +147,12 @@ function updateBestArray(currTime, currScramble) {
   }
 
   // update best solves table
+  for (var i = 0; i < numBestSolves; i++) {
+    if (bestSolves[i] === undefined) {
+      continue;
+    }
+    setCookie(bestSolves[i], i);
+  }
   updateBestTable(bestSolves);
 
 }
@@ -160,7 +166,6 @@ function updateBestTable(bestSolves) {
       continue;
     }
     console.log(bestSolves[i]);
-    setCookie(bestSolves[i], i);
     createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
   }
 }

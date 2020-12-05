@@ -165,7 +165,6 @@ function updateBestTable(bestSolves) {
     if (bestSolves[i] === undefined) {
       continue;
     }
-    console.log(bestSolves[i]);
     createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
   }
 }
@@ -246,7 +245,6 @@ function setCookie(solve, num) {
 
   document.cookie = cookieSolveInfo;
   document.cookie = cookieScrambleInfo;
-  console.log(document.cookie);
 }
 
 /*
@@ -258,7 +256,6 @@ function readCookies() {
   }
 
   // get cookie data
-  console.log(document.cookie);
   var cookieArray = document.cookie.split(";");  
   console.log(cookieArray);
   
@@ -271,6 +268,7 @@ function readCookies() {
     cookieSolves.push(solveCookie, scrambleCookie);
   }
 
+  console.log(cookieSolves);
   // update best solves table with the cookie solves
   updateBestTable(cookieSolves);
 }
