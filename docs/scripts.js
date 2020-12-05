@@ -177,7 +177,7 @@ function createDropdownRow(parentRow, solve) {
   parentRow.innerHTML = "<td class=\"text-center\">" + "<div class=\"dropdown\">" +
    "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\">" + solve.time + "s</a>" +
    "<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLablel\">" +
-        "<li><a>" + toStringArrayNoComma(solve.scramble) + "</a></li></ul></div></td>";
+        "<li><a> " + toStringArrayNoComma(solve.scramble) + " </a></li></ul></div></td>";
 
   if (solves.includes(solve) && bestSolves.includes(solve)) {
     if (solve.colorIndex === undefined) {
