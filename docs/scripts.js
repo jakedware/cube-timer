@@ -146,13 +146,15 @@ function updateBestArray(currTime, currScramble) {
     bestSolves.pop();
   }
 
-  // update best solves table
+  // set cookies
   for (var i = 0; i < numBestSolves; i++) {
     if (bestSolves[i] === undefined) {
       continue;
     }
     setCookie(bestSolves[i], i);
   }
+
+ // update table
   updateBestTable(bestSolves);
 
 }
@@ -165,6 +167,11 @@ function updateBestTable(bestSolves) {
     if (bestSolves[i] === undefined) {
       continue;
     }
+
+    if (table.rows[i + tableRowOffset].innerHTML.length != 0) {
+      continue;
+    }
+
     createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
   }
 }
@@ -260,7 +267,7 @@ function readCookies() {
   console.log(cookieArray);
   
   // get solve from cookie data 
-  var cookieSolves = [];
+  var cookieSolves = new Array();
   for (var i = 0; i < cookieArray.length; i += 2) {
     var solveCookie = cookieArray[i].split("=")[1];
     var scrambleCookie = cookieArray[i + 1].split("=")[1].split("-");

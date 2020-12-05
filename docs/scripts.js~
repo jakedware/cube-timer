@@ -265,7 +265,7 @@ function readCookies() {
     var solveCookie = cookieArray[i].split("=")[1];
     var scrambleCookie = cookieArray[i + 1].split("=")[1].split("-");
 
-    cookieSolves.push({time:solveCookie, solve:scrambleCookie});
+    cookieSolves.push({time:solveCookie, scramble:scrambleCookie});
   }
 
   console.log(cookieSolves);
