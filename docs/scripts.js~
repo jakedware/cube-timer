@@ -168,6 +168,8 @@ function updateBestTable(bestSolves) {
       continue;
     }
 
+
+    console.log(table.rows[i + tableRowOffset].innerHTML.length);
     if (table.rows[i + tableRowOffset].innerHTML.length != 0) {
       continue;
     }

@@ -169,12 +169,10 @@ function updateBestTable(bestSolves) {
     }
 
 
-    console.log(table.rows[i + tableRowOffset].innerHTML.length);
-    if (table.rows[i + tableRowOffset].innerHTML.length != 0) {
-      continue;
+    console.log(table.rows[i + tableRowOffset].innerHTML);
+    if (table.rows[i + tableRowOffset].innerHTML.length === undefined) {
+      createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
     }
-
-    createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
   }
 }
 
