@@ -8,6 +8,9 @@ var inspecting = false; // true if inspection is taking place, false otherwise
 var interval = null;
 var numBestSolves = 5;
 var numRecentSolves = 5;
+var tableColors = ["primary", "success", "danger", "warning", "info"];
+var tableColorsIndex = 0;
+
 /*
  * Starts or ends timer based on timer button state
  */
@@ -99,8 +102,9 @@ function endTimer() {
   }
 
  // put solves in tables
+  updateBestArray(solves[0]);
   updateRecentTable();
-  updateBestArray(solveTime, currScramble);
+  updateBestTable(bestSolves);
 }
 
 /*
@@ -121,30 +125,24 @@ function updateRecentTable() {
 /*
  * Updates best time table if new top 5 time is achieved
  */
-function updateBestArray(currTime, currScramble) {
+function updateBestArray(currSolve) {
   var index = -1;
   // checks if currSolve is better than any of the best solves
   for (var i = numBestSolves - 1; i >= 0; i--) {
-    if (bestSolves[i] === undefined || currTime < bestSolves[i].time) {
+    if (bestSolves[i] === undefined || currSolve.time < bestSolves[i].time) {
       index = i;
     }
   }
-  console.log(index);
 
-  // don't update table if currSolve is not better than any of the best solves
+  // don't update array if currSolve is not better than any of the best solves
   if (index == -1) {
     return;
   } 
+  
+  // udpdate array
+  bestSolves.splice(index, 0, currSolve);
 
-  bestSolves.splice(index, 0, {time:currTime, scramble:currScramble});
-
-  // update bestSolves array
-//  for (var i = bestSolves.length; i > index; i--) {
-  //  bestSolves[i] = bestSolves[i - 1]; 
- // }
-
- // bestSolves[index] = {time:currTime, scramble:currScramble};
-
+  // remove extra solves from end of array
   while(bestSolves.length > numBestSolves) {
     bestSolves.pop();
   }
@@ -156,9 +154,6 @@ function updateBestArray(currTime, currScramble) {
     }
     setCookie(bestSolves[i], i);
   }
-
- // update table
-  updateBestTable(bestSolves);
 
 }
 
@@ -184,6 +179,21 @@ function createDropdownRow(parentRow, solve) {
    "<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLablel\">" +
         "<li><a>" + toStringArrayNoComma(solve.scramble) + "</a></li></ul></div></td>";
 
+  if (solves.includes(solve) && bestSolves.includes(solve)) {
+    if (solve.colorIndex === undefined) {
+      parentRow.className = "table-" + tableColors[tableColorsIndex];
+    
+      solve.colorIndex = tableColorsIndex;
+
+      tableColorsIndex = ++tableColorsIndex % tableColors.length;
+    }
+    else {
+      parentRow.className = "table-" + tableColors[solve.colorIndex];
+    }
+  }
+  else {
+    parentRow.className = "";
+  }
 }
 
 /*
