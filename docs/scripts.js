@@ -112,13 +112,16 @@ function endTimer() {
  */
 function updateRecentTable() {
   let table = document.getElementById("recent-table");   
-  for (var i = 0; i < solves.length; i++) {
+  for (var i = 0; i < numBestSolves; i++) {
+
+    // make empty row
     if (solves[i] === undefined) {
-      break;
+      table.rows[i + 1].innerHTML = "<td></td><td width=\"100px\" class=\"text-center\"><button type=\"button\" class=\"btn btn-outline-danger\" disabled><i class=\"fa fa-trash-alt\"></i></button></td>";
+      table.rows[i + 1].className = "";
+      continue;
     }
 
-    table.rows[i + 1].innerHTML = "<td>" + solves[i].time + "s</td>";
-    createDropdownRow(table.rows[i + 1], solves[i]);
+    createDropdownRow(table.rows[i + 1], solves[i], i);
   }
 }
 
@@ -157,28 +160,36 @@ function updateBestArray(currSolve) {
 
 }
 
-function updateBestTable(bestSolves) {
+function updateBestTable() {
   // update best solves table
   let table = document.getElementById("best-table");
   var tableRowOffset = table.tHead.rows.length;
   for (var i = 0; i < numBestSolves; i++) {
+
+    // make empty row withOUT solves
     if (bestSolves[i] === undefined) {
-      break;
+            table.rows[i + 1].innerHTML = "<td></td><td width=\"100px\" class=\"text-center\"><button type=\"button\"    class=\"btn btn-outline-danger\" disabled><i class=\"fa fa-trash-alt\"></i></button></td>";
+      table.rows[i + 1].className = "";
+      continue;
     }
 
-    createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i]);
+    // create row WITH solve
+    createDropdownRow(table.rows[i + tableRowOffset], bestSolves[i], i);
   }
 }
 
 /*
  * Creates dropdown with scramble for the given row
  */
-function createDropdownRow(parentRow, solve) {
+function createDropdownRow(parentRow, solve, index) {
   parentRow.innerHTML = "<td class=\"text-center\">" + "<div class=\"dropdown\">" +
-   "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\">" + solve.time + "s</a>" +
-   "<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLablel\">" +
-        "<li><a> " + toStringArrayNoComma(solve.scramble) + " </a></li></ul></div></td>";
+    "<a class=\"dropdown-toggle\" data-toggle=\"dropdown\">" + solve.time + "s</a>" +
+    "<ul class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"dLablel\">" +
+    "<li><a> " + toStringArrayNoComma(solve.scramble) + " </a></li></ul></div></td>" +
+    "<td width=\"100px\" class=\"text-center\"><button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"removeSolve("+ index + "," + solve.time + ")\">" +
+    "<i class=\"fa fa-trash-alt\"></i></button></td>";
 
+  // set colors for solves that are in both recent table and best table
   if (solves.includes(solve) && bestSolves.includes(solve)) {
     if (solve.colorIndex === undefined) {
       parentRow.className = "table-" + tableColors[tableColorsIndex];
@@ -194,6 +205,55 @@ function createDropdownRow(parentRow, solve) {
   else {
     parentRow.className = "";
   }
+}
+
+/*
+ * Removes solve from table
+ */
+function removeSolve(index, solveTime) {
+  var solve = null;
+  var isBestSolve = 0;
+
+  if (solveTime != solves[index].time) {
+    if (solveTime != bestSolves[index].time) {
+      console.log("Problem removing solve.");
+      return;
+    } 
+    else {
+      solve = bestSolves[index];
+      isBestSolve++;
+    }
+  }
+  else {
+    solve = solves[index];
+  }
+
+  // if search for solve in array is successful
+  if (solve != null) {
+    if (Boolean(isBestSolve)) {
+      bestSolves.splice(index, 1);
+
+      // check if solve is also in recent
+      if (solves.includes(solve)) {
+        solves.splice(solves.indexOf(solve), 1);
+      }
+    }
+    else {
+      solves.splice(index, 1);
+
+      // check if solve is also in best
+      if (bestSolves.includes(solve)) {
+        bestSolves.splice(bestSolves.indexOf(solve), 1);
+      }
+    }
+  }
+  else {
+    console.log("Problem removing solve.");
+    return;
+  }
+
+  updateBestTable();
+  updateRecentTable();
 }
 
 /*
@@ -284,7 +344,6 @@ function readCookies() {
     cookieSolves.push({time:solveCookie, scramble:scrambleCookie});
   }
 
-  console.log(cookieSolves);
   // update best solves table with the cookie solves
   bestSolves = cookieSolves;
   updateBestTable(cookieSolves);
