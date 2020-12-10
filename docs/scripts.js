@@ -150,13 +150,7 @@ function updateBestArray(currSolve) {
     bestSolves.pop();
   }
 
-  // set cookies
-  for (var i = 0; i < numBestSolves; i++) {
-    if (bestSolves[i] === undefined) {
-      continue;
-    }
-    setCookie(bestSolves[i], i);
-  }
+  setCookies();
 
 }
 
@@ -256,6 +250,7 @@ function removeSolve(index, solveTime) {
   // update tables
   updateBestTable();
   updateRecentTable();
+  setCookies();
 }
 
 /*
@@ -309,20 +304,24 @@ function toStringArrayNoComma(array) {
 /*
  * Sets cookies with solves from best solves table
  */
-function setCookie(solve, num) {
-  var cookieSolveInfo = "solve" + num + "=" + solve.time;
+function setCookies() {
+  for (var i = 0; i < bestSolves.length; i++) {
+    var solve = bestSolves[i];
+
+    var cookieSolveInfo = "solve" + i + "=" + solve.time;
   
-  var cookieScrambleInfo = "scramble" + num + "=";
-  for (var i = 0; i < solve.scramble.length; i++) {
-    cookieScrambleInfo += solve.scramble[i];
+    var cookieScrambleInfo = "scramble" + i + "=";
+    for (var i = 0; i < solve.scramble.length; i++) {
+      cookieScrambleInfo += solve.scramble[i];
 
-    if (i != solve.scramble.length - 1) {
-      cookieScrambleInfo +=  "-";
+      if (i != solve.scramble.length - 1) {
+        cookieScrambleInfo +=  "-";
+      }
     }
-  }
 
-  document.cookie = cookieSolveInfo;
-  document.cookie = cookieScrambleInfo;
+    document.cookie = cookieSolveInfo;
+    document.cookie = cookieScrambleInfo;
+  }
 }
 
 /*
@@ -350,6 +349,7 @@ function readCookies() {
   bestSolves = cookieSolves;
   updateBestTable(cookieSolves);
 }
+
 
 /*
  * Calls function that initialize the website
