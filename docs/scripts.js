@@ -250,6 +250,9 @@ function removeSolve(index, solveTime) {
   // update tables
   updateBestTable();
   updateRecentTable();
+
+  // update cookies
+  deleteCookies();
   setCookies();
 }
 
@@ -348,6 +351,13 @@ function readCookies() {
   // update best solves table with the cookie solves
   bestSolves = cookieSolves;
   updateBestTable(cookieSolves);
+}
+
+function deleteCookies() {
+  for (var i = 0; i < numBestSolves; i++) {
+    document.cookie("solve" + i + "=; scramble" + i + "; expires=Thu, 01 Jan 1970 00:00:00 UTC;"); 
+    console.log(document.cookie);
+  }
 }
 
 
