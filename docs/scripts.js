@@ -168,8 +168,8 @@ function updateBestTable() {
 
     // make empty row withOUT solves
     if (bestSolves[i] === undefined) {
-            table.rows[i + 1].innerHTML = "<td></td><td width=\"100px\" class=\"text-center\"><button type=\"button\"    class=\"btn btn-outline-danger\" disabled><i class=\"fa fa-trash-alt\"></i></button></td>";
-      table.rows[i + 1].className = "";
+            table.rows[i + tableRowOffset].innerHTML = "<td></td><td width=\"100px\" class=\"text-center\"><button type=\"button\"    class=\"btn btn-outline-danger\" disabled><i class=\"fa fa-trash-alt\"></i></button></td>";
+      table.rows[i + tableRowOffset].className = "";
       continue;
     }
 
@@ -214,8 +214,9 @@ function removeSolve(index, solveTime) {
   var solve = null;
   var isBestSolve = 0;
 
-  if (solveTime != solves[index].time) {
-    if (solveTime != bestSolves[index].time) {
+  // find matching solve in solve arrays
+  if (solves[index] === undefined || solveTime != solves[index].time) {
+    if (bestSolves[index] === undefined || solveTime != bestSolves[index].time) {
       console.log("Problem removing solve.");
       return;
     } 
@@ -252,6 +253,7 @@ function removeSolve(index, solveTime) {
     return;
   }
 
+  // update tables
   updateBestTable();
   updateRecentTable();
 }
