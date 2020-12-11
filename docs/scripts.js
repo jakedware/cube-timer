@@ -317,7 +317,7 @@ function setCookies() {
     var cookieSolveInfo = "solve" + i + "=" + solve.time;
   
     var cookieScrambleInfo = "scramble" + i + "=";
-    for (var j = 0; j < solve.scramble.length; i++) {
+    for (var j = 0; j < solve.scramble.length; j++) {
       cookieScrambleInfo += solve.scramble[j];
 
       if (j != solve.scramble.length - 1) {
