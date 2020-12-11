@@ -355,8 +355,8 @@ function readCookies() {
 
 function deleteCookies() {
   for (var i = 0; i < numBestSolves; i++) {
-    document.cookie = "solve" + i + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"; 
-    document.cookie = "scramble" + i + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    document.cookie = "solve" + i + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC"; 
+    document.cookie = "scramble" + i + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
   }
 }
 
