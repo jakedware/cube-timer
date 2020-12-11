@@ -309,6 +309,7 @@ function toStringArrayNoComma(array) {
  */
 function setCookies() {
   console.log(bestSolves);
+  console.log(bestSolves.length);
   for (var i = 0; i < bestSolves.length; i++) {
     var solve = bestSolves[i];
 
