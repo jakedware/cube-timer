@@ -251,12 +251,9 @@ function removeSolve(index, solveTime) {
   updateBestTable();
   updateRecentTable();
 
-  console.log(document.cookie);
   // update cookies
   deleteCookies();
-  console.log(document.cookie);
   setCookies();
-  console.log(document.cookie);
 }
 
 /*
