@@ -308,10 +308,9 @@ function toStringArrayNoComma(array) {
  * Sets cookies with solves from best solves table
  */
 function setCookies() {
+  console.log(bestSolves);
   for (var i = 0; i < bestSolves.length; i++) {
     var solve = bestSolves[i];
-
-    console.log(solve);
 
     var cookieSolveInfo = "solve" + i + "=" + solve.time;
   
