@@ -309,7 +309,6 @@ function toStringArrayNoComma(array) {
  */
 function setCookies() {
   console.log(bestSolves);
-  console.log(bestSolves.length);
   for (var i = 0; i < bestSolves.length; i++) {
     var solve = bestSolves[i];
 
@@ -318,10 +317,10 @@ function setCookies() {
     var cookieSolveInfo = "solve" + i + "=" + solve.time;
   
     var cookieScrambleInfo = "scramble" + i + "=";
-    for (var i = 0; i < solve.scramble.length; i++) {
-      cookieScrambleInfo += solve.scramble[i];
+    for (var j = 0; j < solve.scramble.length; i++) {
+      cookieScrambleInfo += solve.scramble[j];
 
-      if (i != solve.scramble.length - 1) {
+      if (j != solve.scramble.length - 1) {
         cookieScrambleInfo +=  "-";
       }
     }
