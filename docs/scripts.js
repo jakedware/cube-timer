@@ -311,6 +311,8 @@ function setCookies() {
   for (var i = 0; i < bestSolves.length; i++) {
     var solve = bestSolves[i];
 
+    console.log(solve);
+
     var cookieSolveInfo = "solve" + i + "=" + solve.time;
   
     var cookieScrambleInfo = "scramble" + i + "=";
