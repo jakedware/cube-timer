@@ -112,7 +112,7 @@ function endTimer() {
  */
 function updateRecentTable() {
   let table = document.getElementById("recent-table");   
-  for (var i = 0; i < numBestSolves; i++) {
+  for (var i = 0; i < numRecentSolves; i++) {
 
     // make empty row
     if (solves[i] === undefined) {
@@ -129,22 +129,14 @@ function updateRecentTable() {
  * Updates best time table if new top 5 time is achieved
  */
 function updateBestArray(currSolve) {
-  var index = -1;
-  // checks if currSolve is better than any of the best solves
-  for (var i = numBestSolves - 1; i >= 0; i--) {
-    if (bestSolves[i] === undefined || currSolve.time < bestSolves[i].time) {
-      index = i;
-    }
-  }
+  // add solve to array
+  bestSolves.push(currSolve);
 
-  // don't update array if currSolve is not better than any of the best solves
-  if (index == -1) {
-    return;
-  } 
+  // sort array
+  bestSolves = bestSolves.sort( (a, b) => {
+    return a.time - b.time;
+  });
   
-  // udpdate array
-  bestSolves.splice(index, 0, currSolve);
-
   // remove extra solves from end of array
   while(bestSolves.length > numBestSolves) {
     bestSolves.pop();
@@ -185,9 +177,12 @@ function createDropdownRow(parentRow, solve, index) {
 
   // set colors for solves that are in both recent table and best table
   if (solves.includes(solve) && bestSolves.includes(solve)) {
+
+    // if solve doesn't already have a color
     if (solve.colorIndex === undefined) {
       parentRow.className = "table-" + tableColors[tableColorsIndex];
     
+      // assign it a color
       solve.colorIndex = tableColorsIndex;
 
       tableColorsIndex = ++tableColorsIndex % tableColors.length;
