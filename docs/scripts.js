@@ -416,4 +416,5 @@ function deleteCookies() {
 function initialize() {
   generateScramble();
   readCookies();
+  setAverageOfFive();
 }
