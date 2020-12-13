@@ -105,6 +105,7 @@ function endTimer() {
   updateBestArray(solves[0]);
   updateRecentTable();
   updateBestTable(bestSolves);
+  setAverageOfFive();
 }
 
 /*
@@ -197,6 +198,59 @@ function createDropdownRow(parentRow, solve, index) {
 }
 
 /*
+ * Sets Ao5 table in index.html
+ */
+function setAverageOfFive() {
+  if (solves.length == 5) {
+    // clone recent array
+    var solvesCopy = Array.from(solves);
+
+    // sort array
+    var solvesSorted = solvesCopy.sort( (a, b) => { return a.time - b.time; });
+    
+    // remove best and worst solve from array
+    solvesSorted.shift();
+    solvesSorted.pop();
+
+    // calculate average of remaining 3 solves
+    var recentAo5 = 0;
+
+    solvesSorted.forEach( solve => { recentAo5 += solve.time; });
+
+    recentAo5 = recentAo5 / solvesSorted.length;
+
+    // dipslay results
+    document.getElementById("recent-ao5").innerHTML = recentAo5.toFixed(3);
+  }
+  else {
+    document.getElementById("recent-ao5").innerHTML = "--";
+  }
+
+  if (bestSolves.length == 5) {
+    // clone best array
+    var solvesSorted = Array.from(bestSolves);
+
+    // remove best and worst solve from array
+    solvesSorted.shift();
+    solvesSorted.pop();
+
+    // calculate average of remaining 3 solves
+    var bestAo5 = 0;
+
+    solvesSorted.forEach( solve => { bestAo5 += solve.time; });
+
+    bestAo5 = bestAo5 / solvesSorted.length;
+
+    // display results
+    document.getElementById("best-ao5").innerHTML = bestAo5.toFixed(3);
+  } 
+  else {
+    document.getElementById("best-ao5").innerHTML = "--";
+  }
+
+}
+
+/*
  * Removes solve from table
  */
 function removeSolve(index, solveTime) {
@@ -245,6 +299,7 @@ function removeSolve(index, solveTime) {
   // update tables
   updateBestTable();
   updateRecentTable();
+  setAverageOfFive();
 
   // update cookies
   deleteCookies();
